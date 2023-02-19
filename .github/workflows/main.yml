@@ -61,10 +61,10 @@ jobs:
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/rishat_stripe-backend
             sudo docker-compose stop
             sudo docker-compose rm backend
-            rm .env
-            touch .env
-            echo STRIPE_PUBLIC_KEY=${{ secrets.STRIPE_PUBLIC_KEY }} >> .env
-            echo STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} >> .env
+            rm stripe_app/.env
+            touch stripe_app/.env
+            echo STRIPE_PUBLIC_KEY=${{ secrets.STRIPE_PUBLIC_KEY }} >> stripe_app/.env
+            echo STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} >> stripe_app/.env
             
             sudo docker-compose up -d
   telegram_message:
