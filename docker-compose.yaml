@@ -21,5 +21,6 @@ services:
 
     depends_on:
       - stripe-backend
+
 volumes:
   static_value:
