@@ -1,9 +1,16 @@
+[![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/-Django-464646?style=flat-square&logo=Django)](https://www.djangoproject.com/)
+[![SQLite](https://img.shields.io/badge/-SQLite-464646?style=flat-square&logo=SQLite)](https://www.sqlite.org/)
+[![Nginx](https://img.shields.io/badge/-NGINX-464646?style=flat-square&logo=NGINX)](https://nginx.org/ru/)
+[![gunicorn](https://img.shields.io/badge/-gunicorn-464646?style=flat-square&logo=gunicorn)](https://gunicorn.org/)
+[![docker](https://img.shields.io/badge/-Docker-464646?style=flat-square&logo=docker)](https://www.docker.com/)
+
 Задание:
 -------
 
-* Реализовать Django + Stripe API бэкенд со следующим функционалом и условиями:
-* Django Модель `Item` с полями `(name, description, price) `
-* API с двумя методами:
+- Реализовать Django + Stripe API бэкенд со следующим функционалом и условиями:
+- Django Модель `Item` с полями `(name, description, price) `
+- API с двумя методами:
     * GET `/buy/{id}`, c помощью которого можно получить Stripe Session Id для оплаты выбранного Item. При выполнении
       этого метода c бэкенда с помощью python библиотеки stripe должен выполняться
       запрос` stripe.checkout.Session.create(...)` и полученный session.id выдаваться в результате запроса
@@ -12,93 +19,54 @@
       session_id и далее с помощью JS библиотеки Stripe происходить редирект на Checkout
       форму `stripe.redirectToCheckout(sessionId=session_id)`
 
-* Залить решение на Github, описать запуск в README.md
+- Залить решение на Github, описать запуск в README.md
 
-* Запуск используя `Docker`
+- Запуск используя `Docker`
 
-* Просмотр Django Моделей в Django Admin панели - __доступно по адресу `127.0.0.1:8000/admin`
+- Использование environment variables
 
-* Запуск приложения на удаленном сервере, доступном для тестирования - запущенно на `127.0.0.1:8000`
+- Просмотр Django Моделей в Django Admin панели - __доступно по адресу `127.0.0.1/admin`
 
-Получение всех api ключей
+- Запуск приложения на удаленном сервере, доступном для тестирования - запущенно на `127.0.0.1`
+
+Описание:
+-------------------------
+Тестовое задание выполнено на языке Python с использованием фреймворка Django. Запуск проекта производится с помощью Doсker. Так же использовал возможности Nginx для раздачи статики, чтобы Django-админка смотрелась презентабельней с DEBUG = False в settings.py. Бэкэнд-приложение и Nginx запускаяются в двух разных контейнерах.
+
+Получение api-ключей
 -------------------------
 
-Publishable key:
+Publishable key (STRIPE_PUBLIC_KEY):
 https://dashboard.stripe.com/apikeys
 
-Secret key:
+Secret key (STRIPE_SECRET_KEY):
 https://dashboard.stripe.com/apikeys
 
 Webhooks:
 https://dashboard.stripe.com/webhooks
 
-### Ваши ключи:
-![img.png](img/img5.png)
-
-### Пример ссылки для Webhooks:
-![img.png](img/img4.png)
-
-### Для корректной работы нужно активировать приложение:
-https://dashboard.stripe.com/settings/account
-
-### Пример приложения:
-![img.png](img/img6.png)
 
 Запуск
 ------
 
+Склонировать репозиторий на локальную машину
 ```
-git clone https://github.com/vadushkin/stripe_task.git
-cd stripe_task
-python -m venv venv
-.\venv\Scripts\activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+git clone https://github.com/elvir906/test_task_stripe.git
 ```
+Создать .env файл в директории stripe_app, в той, в которой расположен manage.py,
+и прописать в нём полученные api-ключи. 
 
-#### Для админки:
 ```
-python manage.py createsuperuser
+STRIPE_PUBLIC_KEY='ключ, полученный по ссылке'
+STRIPE_SECRET_KEY='ключ, полученный по ссылке'
+
 ```
 
 Запуск Docker
 ------
-
 ```
-git clone https://github.com/vadushkin/stripe_task.git
-cd stripe_task
-docker-compose up -d
+docker-compose up -d --build
 ```
 
-#### Остановка docker:
-```
-docker-compose stop
-```
-
-Главная страница: http://localhost:8000/
-
-Если сервер не отдаёт информацию, подождите пару секунд и перезагрузите страницу
-
-Сервис
-------
-
-* `/` - Ваши товары в виде ссылки на item
-* `admin/` - Админка
-* `buy/<item_id>` - Купить товар
-* `item/<item_id>` - Страница товара
-
-Скриншоты
----------
-
-#### Главная страница с ссылками на товары:
-
-![img.png](img/img.png)
-
-#### Товар и ссылка на оплату:
-
-![img_2.png](img/img_2.png)
-
-#### Оплата товара:
-
-![img_1.png](img/img_1.png)
+Проект будет досупен по адресу http://127.0.0.1/
+Админка будет доступна по адресу http://127.0.0.1/admin/
