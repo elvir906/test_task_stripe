@@ -9,7 +9,7 @@ services:
       - static_value:/app/static/
     env_file:
       - stripe_app/.env
-  stripe-nginx:
+  nginx:
     image: nginx:1.21.3-alpine
 
     ports:
