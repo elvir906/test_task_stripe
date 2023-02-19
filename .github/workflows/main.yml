@@ -44,7 +44,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/lavka_app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/rishat_stripe-backend:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,16 +58,14 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/lavka_app
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/rishat_stripe-backend
             sudo docker-compose stop
             sudo docker-compose rm backend
             rm .env
             touch .env
-            echo DB_NAME=${{ secrets.POSTGRES_DB }} >> .env
-            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
-            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
-            echo POSTGRES_SERVER=${{ secrets.POSTGRES_SERVER }} >> .env
-            echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
+            echo STRIPE_PUBLIC_KEY=${{ secrets.STRIPE_PUBLIC_KEY }} >> .env
+            echo POSTGRES_USER=${{ secrets.STRIPE_SECRET_KEY }} >> .env
+            
             sudo docker-compose up -d
   telegram_message:
     name: Send telegram message
