@@ -46,7 +46,7 @@ Webhooks:
 https://dashboard.stripe.com/webhooks
 
 
-Запуск
+Подготовка
 ------
 
 Склонировать репозиторий на локальную машину
@@ -62,7 +62,7 @@ STRIPE_SECRET_KEY='ключ, полученный по ссылке'
 
 ```
 
-Запуск Docker
+Запуск приложения в Docker
 ------
 ```
 docker-compose up -d --build
