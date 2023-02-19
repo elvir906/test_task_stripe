@@ -101,4 +101,4 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost'
 ]
 
-HOST = "http://127.0.0.1:8000"
+HOST = "http://127.0.0.1"
