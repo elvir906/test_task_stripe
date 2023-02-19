@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  stripe-backend:
+    build:
+      context: .
+      dockerfile: stripe_app/Dockerfile
+    volumes:
+      - static_value:/app/static/
+    env_file:
+      - stripe_app/.env
+  stripe-nginx:
+    image: nginx:1.21.3-alpine
+
+    ports:
+      - "80:80"
+
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+      - static_value:/var/html/static/
+
+    depends_on:
+      - stripe-backend
+
+volumes:
+  static_value:
