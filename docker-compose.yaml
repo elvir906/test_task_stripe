@@ -4,7 +4,7 @@ services:
   stripe-backend:
     build:
       context: .
-      dockerfile: stripe_app/Dockerfile
+      dockerfile: Dockerfile
     volumes:
       - static_value:/app/static/
     env_file:
