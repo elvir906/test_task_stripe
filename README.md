@@ -70,6 +70,11 @@ docker-compose up -d --build
 Docker сам установит нужные зависимости из requirements.txt, запустит наше приложение
 и серверные прилолжения Gunicorn и Nginx
 
+Для отображения статики в админки выполнить
+```
+docker compose exec stripe-backend python manage.py collectstatic
+```
+
 Проект будет досупен по адресу http://127.0.0.1/.
 Админка будет доступна по адресу http://127.0.0.1/admin/
 login: admin, пароль: 123456

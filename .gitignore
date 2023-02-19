@@ -7,3 +7,4 @@ env.bak/
 venv.bak/
 migrations/
 __pycache__/
+.github/*
